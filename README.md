@@ -11,5 +11,3 @@ A collection of useful scripts
 **StartServer.bat:** Starts the FiveM server after deleting the cache.  Put in the same folder as run.cmd.  
 
 **Trim MP4:** Cuts an MP4 into a smaller file. Cuts to the nearest keyframe in front of the time given.  
-
-**Trim MP4 and delete:** Same as above but deletes the original file also. May get merged.
