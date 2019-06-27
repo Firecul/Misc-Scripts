@@ -10,4 +10,6 @@ A collection of useful scripts
 
 [**StartServer.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/StartServer.bat) Starts the FiveM server after deleting the cache.  Put in the same folder as run.cmd.  
 
+[**Steam Lookup.ahk**](https://github.com/Firecul/Misc-Scripts/blob/master/Steam%20Lookup.ahk) Looks up a Steam profile from it's hex id using [Steam ID Finder](https://steamidfinder.com/).
+
 [**Trim MP4:**](https://github.com/Firecul/Misc-Scripts/blob/master/Trim%20MP4.bat) Cuts an MP4 into a smaller file. Cuts to the nearest keyframe in front of the time given.  
