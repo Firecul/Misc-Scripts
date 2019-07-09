@@ -1,11 +1,13 @@
 #SingleInstance, Force
 
-Gui, add, text,, Steam ID Hex input:
+Gui, add, text,, FiveM Server Address:
 Gui, add, edit, w200 vnumber,
-GUi, add, button, w200 gLaunch, Lookup ID
-Gui, add, text, cBlue w200 vresult
+GUi, add, button, w200 gRace, Race Server
+GUi, add, button, w200 gTesting, Testing Server
+GUi, add, button, w200 gDev, Dev Server
+;Gui, add, text, cBlue w200 vresult
 Gui, Font, norm
-Gui, Show, w220, Steam Hex Lookup
+Gui, Show, w220, FiveM Launcher
 return
 
 race:
