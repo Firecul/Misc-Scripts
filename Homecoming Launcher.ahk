@@ -2,9 +2,9 @@
 Gui, New
 Gui, add, text,, Project Homecoming Servers:
 ;Gui, add, edit, w200 vAddress,
-GUi, add, button, w200 default gRace, Race Server
-GUi, add, button, w200 gTesting, Testing Server
-GUi, add, button, w200 gDev, Dev Server
+GUi, add, button, w200 default gRace, &Race Server
+GUi, add, button, w200 gTesting, &Testing Server
+GUi, add, button, w200 gDev, &Dev Server
 GUi, add, button, w200 gGuiClose, Exit
 Gui, Show, AutoSize Center, PH FiveM Launcher
 ;Gui, -SysMenu +Owner
