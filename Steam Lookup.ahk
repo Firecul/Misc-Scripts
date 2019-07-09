@@ -3,7 +3,7 @@ Gui, add, edit, w200 vnumber,
 GUi, add, button, w200 gConvert, Lookup ID
 Gui, add, text, cBlue w200 vresult
 Gui, Font, norm
-Gui, Show, w545460846811 w220, Steam Hex Lookup
+Gui, Show, w220, Steam Hex Lookup
 return
 
 Convert:
