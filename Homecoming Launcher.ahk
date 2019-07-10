@@ -188,10 +188,13 @@ Gui, New
 Gui, Add, Tab3,, Connect|Rules|FAQ|About
 
 ;Tab1
+Gui, Add, Picture, w620 h-1, pictures\homecoming.png
 Gui, Add, GroupBox, w220 h115, Project Homecoming Servers:
 GUi, add, button, xp+10 yp+20 w200 +Default gRace, &Race Server
 GUi, add, button, w200 gTesting, &Testing Server
 GUi, add, button, w200 gDev, &Dev Server
+Gui, add, Groupbox, xp+240 yp-78 w370 h115, Disclaimer
+Gui, add, link, xp+10 yp+20 w350, By joining our servers you agree to be bound to the <a href="https://discordapp.com/channels/388742985619079188/395687147732205578/">#rules</a> of our server.
 
 Gui, Tab, 2
 Gui, Add, GroupBox, w620 h700, Project Homecoming Specific Rules:
@@ -228,7 +231,8 @@ Gui, Add, link, w620, Hello and welcome to the Project Homecoming Launcher! `n`n
 
 Gui, Tab
 Gui, font, norm
-GUi, add, button, w100 gGuiClose, Exit
+Gui, add, button, w100 gPHDiscord, Discord
+GUi, add, button, xp+545 w100 gGuiClose, Exit
 Gui, Show, AutoSize Center, PH FiveM Launcher
 ;Gui, -SysMenu +Owner
 return
@@ -248,6 +252,10 @@ testing:
 dev:
   Run fivem://connect/144.217.206.76
   return
+
+PHDiscord:
+ Run https://discord.gg/xbf6pvH
+return
 
 ;Escape Stuff
 GuiEscape:
