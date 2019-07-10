@@ -1,6 +1,6 @@
 #SingleInstance, Force
 
-Menu, Tray, Icon,icons/icon.ico
+Menu, Tray, Icon, icons/icon.ico, 1, 1
 
 vFAQ =
 (
