@@ -187,7 +187,7 @@ Normal(text)
 }
 
 Gui, New
-Gui, Add, Tab3,, Connect|Rules|FAQ|About
+Gui, Add, Tab3,, Connect|Rules|FAQ|Tools|About
 
 ;Tab1
 Gui, Add, Picture, w620 h-1, c:/temp/Homecoming.png
@@ -227,7 +227,16 @@ Gui, Tab, 3
 Gui, font, s10 norm
 Gui, Add, edit, w620 h700 Multi ReadOnly, %vFAQ%
 
+
 Gui, Tab, 4
+Gui, font, s10 norm
+Gui, Add, groupbox, w620 h700, Place tools here
+Gui, add, text, xp+10 yp+20 w250, FiveM install location:
+Gui, add, text, w300, %SelectedFile%
+Gui, add, button, glookforfivem, Locate FiveM install
+
+
+Gui, Tab, 5
 Gui, font, s10 norm
 Gui, Add, link, w620, Hello and welcome to the Project Homecoming Launcher! `n`nThis Launcher serves as the hub for everything you need to join the Project Homecoming racing servers! `n`nIn order to join one of our servers, you will first need to download and install FiveM, a third-party multiplayer client for Grand Theft Auto V. Go to FiveM's official website and follow their instructions to install the client at <a href="https://fivem.net">https://fivem.net/</a> `n`nOnce FiveM is installed, please join our <a href="https://discord.gg/xbf6pvH">Discord server</a> and read the <a href="https://discordapp.com/channels/388742985619079188/388989274156040193/">#faq</a> for instructions on how to join and how to gain the necessary roles. `n`nIt's also a good idea to read <a href="https://discordapp.com/channels/388742985619079188/395687147732205578/">#rules</a> and <a href="https://discordapp.com/channels/388742985619079188/565353654081552405/">#racing-etiquette</a> in their entirety before joining, as Homecoming has some rules and quirks that might not be obvious right off the bat.
 
@@ -254,6 +263,15 @@ testing:
 dev:
   Run fivem://connect/144.217.206.76
   return
+
+lookforfivem:
+Gui +OwnDialogs
+FileSelectFile, SelectedFile, 3, , Locate FiveM.exe, FiveM (FiveM.exe)
+if (SelectedFile = "")
+    MsgBox, The user didn't select anything.
+else
+    MsgBox, The user selected the following:`n%SelectedFile%
+return
 
 PHDiscord:
  Run https://discord.gg/xbf6pvH
