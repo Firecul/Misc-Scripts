@@ -1,5 +1,7 @@
 #SingleInstance, Force
 
+Menu, Tray, Icon,icons/icon.ico
+
 vFAQ =
 (
 READ THE WHOLE THING.
