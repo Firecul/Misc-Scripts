@@ -1,6 +1,8 @@
 #SingleInstance, Force
 
-Menu, Tray, Icon, icons/icon.ico, 1, 1
+Fileinstall, pictures/Homecoming.png, c:/temp/Homecoming.png, 0
+Fileinstall, icons/icon.ico, c:/temp/icon.ico, 0
+Menu, Tray, Icon, c:/temp/icon.ico, 1, 1
 
 vFAQ =
 (
@@ -188,7 +190,7 @@ Gui, New
 Gui, Add, Tab3,, Connect|Rules|FAQ|About
 
 ;Tab1
-Gui, Add, Picture, w620 h-1, pictures\homecoming.png
+Gui, Add, Picture, w620 h-1, c:/temp/Homecoming.png
 Gui, Add, GroupBox, w220 h115, Project Homecoming Servers:
 GUi, add, button, xp+10 yp+20 w200 +Default gRace, &Race Server
 GUi, add, button, w200 gTesting, &Testing Server
@@ -261,4 +263,6 @@ return
 GuiEscape:
 GuiClose:
 ButtonCancel:
+Filerecycle c:/temp/Homecoming.png
+Filerecycle c:/temp/icon.ico
   ExitApp
