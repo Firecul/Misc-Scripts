@@ -317,6 +317,6 @@ return
 GuiEscape:
 GuiClose:
 ButtonCancel:
-Filerecycle c:/temp/Homecoming.png
-Filerecycle c:/temp/icon.ico
+Filedelete c:/temp/Homecoming.png
+Filedelete c:/temp/icon.ico
   ExitApp
