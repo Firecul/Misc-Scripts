@@ -1,8 +1,9 @@
 #SingleInstance, Force
 
-Fileinstall, pictures/Homecoming.png, c:/temp/Homecoming.png, 0
-Fileinstall, icons/icon.ico, c:/temp/icon.ico, 0
-Menu, Tray, Icon, c:/temp/icon.ico, 1, 1
+FileCreateDir, HomecomingLauncher
+Fileinstall, pictures/Homecoming.png, HomecomingLauncher/Homecoming.png, 0
+Fileinstall, icons/icon.ico, HomecomingLauncher/icon.ico, 0
+Menu, Tray, Icon, HomecomingLauncher/icon.ico, 1, 1
 
 vFAQ =
 (
@@ -190,7 +191,7 @@ Gui, New
 Gui, Add, Tab3,, Connect|Rules|FAQ|Tools|About
 
 ;Tab1
-Gui, Add, Picture, w620 h-1, c:/temp/Homecoming.png
+Gui, Add, Picture, w620 h-1, HomecomingLauncher/Homecoming.png
 Gui, Add, GroupBox, w220 h115, Project Homecoming Servers:
 GUi, add, button, xp+10 yp+20 w200 +Default gRace, &Race Server
 GUi, add, button, w200 gTesting, &Testing Server
@@ -317,6 +318,7 @@ return
 GuiEscape:
 GuiClose:
 ButtonCancel:
-Filedelete c:/temp/Homecoming.png
-Filedelete c:/temp/icon.ico
+;Filedelete c:/temp/Homecoming.png
+;Filedelete c:/temp/icon.ico
+FileRemoveDir, HomecomingLauncher, 1
   ExitApp
