@@ -237,8 +237,8 @@ Gui, Add, groupbox, w620 h50, FiveM install location:
 Gui, add, text, xp+10 yp+20 w300 vselfile, (Not found)
 Gui, add, button, xp+470 yp-6 glookforfivem, Locate FiveM install
 
-Gui, Add, groupbox, xp-480 yp+40 w620 h280, Found Logs:
-Gui, Add, ListView, xp+10 yp+20 r11 w600 gMyListView, Name|Size (KB)
+Gui, Add, groupbox, xp-480 yp+40 w620 h260, Found Logs:
+Gui, Add, ListView, xp+10 yp+20 r10 w600 gMyListView, Name|Size (KB)|Modified
 
 Gui, Tab, 5
 Gui, font, s10 norm
@@ -274,8 +274,9 @@ Gui +OwnDialogs
 FileSelectFile, SelectedFile, 3, , Locate FiveM.exe, FiveM (FiveM.exe)
 if (SelectedFile = "")
     MsgBox, The user didn't select anything.
-else
-    MsgBox, The user selected the following:`n%SelectedFile%
+		LV_Delete()
+;else
+    ;MsgBox, The user selected the following:`n%SelectedFile%
 
 Guicontrol, , selfile, %SelectedFile%
 goto updatefiles
@@ -288,10 +289,11 @@ StringTrimRight, seldir, selectedfile, 9
 seldir2 := seldir . "FiveM.app\"
 
 Loop, %seldir2%\CitizenFX.log*
-    LV_Add("", A_LoopFileName, A_LoopFileSizeKB)
+    LV_Add("", A_LoopFileName, A_LoopFileSizeKB, A_LoopFileTimeModified, A_LoopFileFullPath)
 
 LV_ModifyCol()  ; Auto-size each column to fit its contents.
 LV_ModifyCol(2, "75 Integer")  ; For sorting purposes, indicate that column 2 is an integer.
+LV_ModifyCol(3, "digit")
 
 ; Display the window and return. The script will be notified whenever the user double clicks a row.
 Gui, Show
@@ -300,9 +302,14 @@ return
 MyListView:
 if (A_GuiEvent = "DoubleClick")
 {
-    LV_GetText(RowText, A_EventInfo)  ; Get the text from the row's first field.
+	LV_GetText(FileName, A_EventInfo, 1) ; Get the text of the first field.
+	;LV_GetText(FileDir, A_EventInfo, 4)  ; Get the text of the second field.
+	Run C:\Windows\Notepad.exe %seldir2%%FileName%,, UseErrorLevel
+	if ErrorLevel
+		MsgBox Could not open %seldir2%%FileName%
+    ;LV_GetText(RowText, A_EventInfo)  ; Get the text from the row's first field.
 
-    ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
+  ;ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
 }
 return
 
