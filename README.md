@@ -2,12 +2,11 @@
 A collection of useful scripts
 
 
-[**Convert MKV to MP4.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Convert%20MKVs%20to%20MP4.bat) Run to convert all MKV files in the folder to MP4 losslessly. MKVs are not deleted.  
+[**Convert MKV to MP4.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Convert%20MKVs%20to%20MP4.bat) Run to convert all MKV files in the folder to MP4 losslessly, based on [this gist by JamesMacWhite](https://gist.github.com/jamesmacwhite/58aebfe4a82bb8d645a797a1ba975132). MKVs are not deleted.  
 
-[**Delete All MKVs.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Delete%20All%20MKVs.bat) Deletes all MKVs in the folder, based on [this gist by JamesMacWhite](https://gist.github.com/jamesmacwhite/58aebfe4a82bb8d645a797a1ba975132)  
+[**Delete All MKVs.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Delete%20All%20MKVs.bat) Deletes all MKVs in the folder.
 
 [**Homecoming Launcher.ahk:**]https://github.com/Firecul/Homecoming-Launcher) *Moved to it's own repo*
-*Please note: Dev server is accessible to those with Racer rank and above only.*  
 
 [**Make Gif from MP4.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Make%20Gif%20from%20MP4.bat) Makes a custom Gif from any MP4 video, heavily based on [this script by SleepProgger](https://github.com/SleepProgger/my_ffmpeg_utils/blob/master/video2gif.bat)  
 
