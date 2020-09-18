@@ -6,7 +6,7 @@ A collection of useful scripts
 
 [**Delete All MKVs.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Delete%20All%20MKVs.bat) Deletes all MKVs in the folder.
 
-[**Homecoming Launcher.ahk:**]https://github.com/Firecul/Homecoming-Launcher) *Moved to it's own repo*
+[**Homecoming Launcher.ahk:**](https://github.com/Firecul/Homecoming-Launcher) *Moved to it's own repo*
 
 [**Make Gif from MP4.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Make%20Gif%20from%20MP4.bat) Makes a custom Gif from any MP4 video, heavily based on [this script by SleepProgger](https://github.com/SleepProgger/my_ffmpeg_utils/blob/master/video2gif.bat)  
 
