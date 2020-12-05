@@ -13,7 +13,7 @@ SET /P dof=Delete original [y/N]:
 if "%dof%" == "" (
 	SET dof=N
 )
-ffmpeg.exe -ss %start_time% -i %src% -t %duration% -c copy -map 0 %dest% -hide_banner
+ffmpeg.exe -ss %start_time% -i %src% -t %duration% -avoid_negative_ts make_zero -c copy -map 0 %dest% -hide_banner
 
 if "%dof%" == "y" goto delorg
 if "%dof%" == "Y" goto delorg
