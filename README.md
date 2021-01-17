@@ -10,6 +10,8 @@ A collection of useful scripts
 
 [**Make Gif from MP4.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/Make%20Gif%20from%20MP4.bat) Makes a custom Gif from any MP4 video, heavily based on [this script by SleepProgger](https://github.com/SleepProgger/my_ffmpeg_utils/blob/master/video2gif.bat)  
 
+[**Minimize GoXLR.ahk:**](https://github.com/Firecul/Misc-Scripts/blob/master/Minimize%20GoXLR.ahk) Compile and add to your start items at log on to cause the GoXLR app to automatically minimize after it launches during login.  
+
 [**StartServer.bat:**](https://github.com/Firecul/Misc-Scripts/blob/master/StartServer.bat) Starts the FiveM server after deleting the cache.  Put in the same folder as run.cmd.  
 
 [**Steam Lookup.ahk:**](https://github.com/Firecul/Misc-Scripts/blob/master/Steam%20Lookup.ahk) Looks up a Steam profile from it's hex id using [Steam ID Finder](https://steamidfinder.com/).  
