@@ -49,10 +49,12 @@ GreatSuspenderURLFix(FilePath){
 
 	}
 
+	Sort, FileLineArray, U
+
 	FileSelectFile, NewFilePath , S24, %FilePath%, Where to save converted file?, Documents (*.txt)
 		If !(ErrorLevel){
-			FileDelete, FilePath
-			FileAppend, %FileLineArray%, FilePath
+			FileDelete, %NewFilePath%
+			FileAppend, %FileLineArray%, %NewFilePath%
 		}
 		Else{
 			MsgBox, An error occured while saving.
