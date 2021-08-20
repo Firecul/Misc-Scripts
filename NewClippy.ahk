@@ -1,4 +1,4 @@
-#SingleInstance Force
+﻿#SingleInstance Force
 #Warn
 SendMode, Input
 Global SleepLength := 50
