@@ -1,0 +1,4 @@
+/FontInfo 16 dict dup begin
+  /version (001.000) readonly def
+  /FullName (Hu-TrumpetLite-Regular) readonly def
+  /FamilyName (Hu-TrumpetLite) readonly def
