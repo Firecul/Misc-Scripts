@@ -1,6 +1,8 @@
 ﻿;chm launcher.ahk
+; Launches the included help file for ahk, useful for when the site goes offline or unresponsive
+; Normally found at C:\Program Files\AutoHotkey\AutoHotkey.chm
 
-; C:\Program Files\AutoHotkey\AutoHotkey.chm
+
 
 ^F1::
     SplitPath, A_AhkPath,, AHKFolderPath
