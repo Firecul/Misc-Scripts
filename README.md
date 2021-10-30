@@ -4,6 +4,7 @@
 ---
 
 ## [AutoHotKey](https://www.autohotkey.com/)
+#### All scripts use ahk v1 unless specified otherwise.
 - [**Clippy.ahk:**](https://github.com/Firecul/Misc-Scripts/blob/master/AutoHotKey%20Scripts/Clippy.ahk)  
 Allows you to use multiple clipboards simultaneously.
 
@@ -15,6 +16,8 @@ Looks up a Steam profile from it's hex id using [Steam ID Finder](https://steami
 
 - [**The Great Suspender Exported Sessions URL Fixer.ahk:**](https://github.com/Firecul/Misc-Scripts/blob/master/AutoHotKey%20Scripts/The%20Great%20Suspender%20Exported%20Sessions%20URL%20Fixer.ahk)  
 Thanks to the current maintainer of The Great Suspender chrome extension adding in unknown code it was removed from the chrome store without warning to users.  This script (and it's compiled exe if you don't want to install ahk) are to take the extentions export files and remove the `chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=Google&pos=0&uri=https://www.google.com/` and convert it to `https://www.google.com/`
+
+#### I have placed a number of .ahk scripts into [Random Discord Scripts](AutoHotKey%20Scripts/Random%20Discord%20Scripts) that I've tinkered with for the people over there.
 
 ---
 
