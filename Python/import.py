@@ -1,7 +1,7 @@
 ﻿import os
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, unquote
 from concurrent.futures import ThreadPoolExecutor
 import threading
 
@@ -11,8 +11,12 @@ MAX_THREADS = 20
 # Semaphore to control the number of concurrent threads
 thread_semaphore = threading.Semaphore(MAX_THREADS)
 
+def get_base_filename(url):
+    parsed_url = urlparse(url)
+    return unquote(os.path.basename(parsed_url.path))
+
 def download_media(media_url, download_folder, downloaded, skipped):
-    media_name = os.path.basename(media_url)
+    media_name = get_base_filename(media_url)
     media_path = os.path.join(download_folder, media_name)
 
     if not os.path.exists(media_path):
