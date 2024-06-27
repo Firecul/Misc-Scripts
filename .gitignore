@@ -8,3 +8,7 @@ AutoHotKey/Needs Further Work/
 IGNORE/
 
 PrivateScripts
+
+Python/.idea/
+
+Batch/ffmpeg.exe
