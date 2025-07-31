@@ -3,16 +3,22 @@
 # Prompt for URL
 read -p "Enter the URL to the .tar.xz file: " URL
 
-# Prompt for build number
-read -p "Enter the build number: " BUILD_NUMBER
+# Extract build number from the URL
+BUILD_NUMBER=$(echo "$URL" | grep -oP '/\K[0-9]+(?=-[^/]+/fx\.tar\.xz)')
 
-# Construct target directory
+# Check if build number was found
+if [ -z "$BUILD_NUMBER" ]; then
+  echo "Error: Could not extract build number from URL."
+  exit 1
+fi
+
+# Define target directory
 TARGET_DIR="server$BUILD_NUMBER"
 
 # Extract filename from URL
 FILENAME=$(basename "$URL")
 
-echo "Downloading $FILENAME..."
+echo "Downloading FiveM server artifacts (build $BUILD_NUMBER)..."
 wget "$URL" -O "$FILENAME"
 
 # Check if download was successful
