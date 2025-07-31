@@ -30,7 +30,7 @@ fi
 echo "Creating directory: $TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
-echo "Extracting $FILENAME into $TARGET_DIR..."
+echo "Extracting FiveM server artifacts into $TARGET_DIR..."
 tar -xf "$FILENAME" -C "$TARGET_DIR"
 
 # Check if extraction was successful
