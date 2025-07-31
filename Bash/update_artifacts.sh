@@ -48,4 +48,8 @@ fi
 echo "Linking $TARGET_DIR to ./server"
 ln -sf "$TARGET_DIR" server
 
+# Delete the downloaded tar.xz file
+echo "Cleaning up downloaded file..."
+rm -f "$FILENAME"
+
 echo "Setup complete. 'server' now points to ./$TARGET_DIR"
