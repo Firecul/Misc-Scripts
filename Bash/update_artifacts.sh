@@ -33,10 +33,19 @@ mkdir -p "$TARGET_DIR"
 echo "Extracting FiveM server artifacts into $TARGET_DIR..."
 tar -xf "$FILENAME" -C "$TARGET_DIR"
 
-# Check if extraction was successful
-if [ $? -eq 0 ]; then
-  echo "Extraction complete. Files are in ./$TARGET_DIR"
-else
+if [ $? -ne 0 ]; then
   echo "Extraction failed."
   exit 2
 fi
+
+# Remove existing 'server' symlink or directory
+if [ -e "server" ] || [ -L "server" ]; then
+  echo "Removing existing 'server' link or directory..."
+  rm -rf server
+fi
+
+# Create new symbolic link
+echo "Linking $TARGET_DIR to ./server"
+ln -sf "$TARGET_DIR" server
+
+echo "Setup complete. 'server' now points to ./$TARGET_DIR"
