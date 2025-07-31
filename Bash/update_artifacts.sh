@@ -39,9 +39,25 @@ for arg in "$@"; do
     --build=*) MODE="custom"; CUSTOM_BUILD="${arg#*=}" ;;
     --dry-run) DRY_RUN=true ;;
     --quiet) QUIET=true ;;
+    --help)
+      echo -e "${CYAN}FiveM Artifact Setup Script Help${NC}"
+      echo
+      echo "Usage: $0 [options]"
+      echo
+      echo "Options:"
+      echo "  --recommended          Use the recommended build"
+      echo "  --optional             Use the optional build"
+      echo "  --latest               Use the latest build"
+      echo "  --build=<build_num>    Use a custom build number"
+      echo "  --dry-run              Show what would be done without executing"
+      echo "  --quiet                Suppress most output (errors still shown)"
+      echo "  --help                 Show this help message and exit"
+      echo
+      exit 0
+      ;;
     *)
       echo -e "${RED}Unknown option:${NC} $arg"
-      echo -e "${YELLOW}Valid options:${NC} --recommended, --optional, --latest, --build=12345, --dry-run, --quiet"
+      echo -e "${YELLOW}Valid options:${NC} --recommended, --optional, --latest, --build=12345, --dry-run, --quiet, --help"
       exit 1
       ;;
   esac
