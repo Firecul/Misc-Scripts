@@ -11,7 +11,7 @@ NC='\033[0m' # No Color
 ARTIFACTS_URL="https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/"
 TMP_HTML="/tmp/fivem_artifacts.html"
 
-# Parse arguments
+# --- Parse arguments ---
 MODE=""
 CUSTOM_BUILD=""
 
@@ -29,14 +29,14 @@ for arg in "$@"; do
   esac
 done
 
-# Fetch artifact page
+# --- Fetch artifact page ---
 echo -e "${CYAN}Fetching latest FiveM artifact list...${NC}"
 if ! curl -fsSL "$ARTIFACTS_URL" -o "$TMP_HTML"; then
   echo -e "${RED}Failed to fetch artifact list.${NC} Please check your internet connection or try again later."
   exit 1
 fi
 
-# Extract builds
+# --- Extract builds ---
 RECOMMENDED=$(grep -oP '(?<=LATEST RECOMMENDED \()\d+(?=\))' "$TMP_HTML" | head -n1)
 RECOMMENDED_URL=$(grep -oP '(?<=href=")\./'"$RECOMMENDED"'-[^/]+/fx\.tar\.xz(?=")' "$TMP_HTML" | head -n1)
 
@@ -46,7 +46,7 @@ OPTIONAL_URL=$(grep -oP '(?<=href=")\./'"$OPTIONAL"'-[^/]+/fx\.tar\.xz(?=")' "$T
 LATEST_BUILD=$(grep -oP 'href="\./\K\d+-[^/]+(?=/fx\.tar\.xz)' "$TMP_HTML" | cut -d- -f1 | sort -nr | head -n1)
 LATEST_URL=$(grep -oP "./${LATEST_BUILD}-[^/]+/fx\.tar\.xz" "$TMP_HTML" | head -n1)
 
-# Determine download target
+# --- Determine build ---
 case $MODE in
   recommended)
     BUILD=$RECOMMENDED
