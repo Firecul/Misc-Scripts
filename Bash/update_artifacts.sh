@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# --- Log Setup --
+LOG_FILE="fivem_setup.log"
+
+log() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S.%3N')] $*" >> "$LOG_FILE"
+}
+
+
 # --- Color codes ---
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -28,9 +36,11 @@ for arg in "$@"; do
       ;;
   esac
 done
+log "CLI mode selected: --$MODE${CUSTOM_BUILD:+=$CUSTOM_BUILD}"
 
 # --- Fetch artifact page ---
 echo -e "${CYAN}Fetching latest FiveM artifact list...${NC}"
+log "Fetching artifact list from $ARTIFACTS_URL"
 if ! curl -fsSL "$ARTIFACTS_URL" -o "$TMP_HTML"; then
   echo -e "${RED}Failed to fetch artifact list.${NC} Please check your internet connection or try again later."
   exit 1
@@ -72,6 +82,7 @@ case $MODE in
   *)
     echo
     echo -e "${CYAN}No flag provided. Entering interactive mode.${NC}"
+    log "No CLI flags provided — entering interactive mode"
     echo
     echo -e "${YELLOW}Select a build to download:${NC}"
     echo "1) Recommended Build ($RECOMMENDED)"
@@ -89,6 +100,7 @@ case $MODE in
         MATCH=$(grep -oP "./${BUILD}-[^/]+/fx\.tar\.xz" "$TMP_HTML" | head -n1)
         if [ -z "$MATCH" ]; then
           echo -e "${RED}Build $BUILD not found on the server.${NC}"
+          log "Error: Build $BUILD not found on server"
           exit 1
         fi
         URL="$ARTIFACTS_URL${MATCH#./}"
@@ -102,15 +114,20 @@ case $MODE in
 esac
 
 # --- Download & Setup ---
+log "Selected build: $BUILD"
+log "Resolved download URL: $URL"
 TARGET_DIR="server$BUILD"
 FILENAME="fx_$BUILD.tar.xz"
 
 echo
 echo -e "${BLUE}Downloading FiveM server artifacts for build $BUILD...${NC}"
+log "Download started for $URL"
 if ! wget "$URL" -O "$FILENAME"; then
   echo -e "${RED}Download failed.${NC}"
+  log "Error: Download failed for $URL"
   exit 1
 fi
+log "Download completed: $FILENAME"
 
 echo -e "${BLUE}Creating directory:${NC} $TARGET_DIR"
 mkdir -p "$TARGET_DIR"
@@ -118,16 +135,22 @@ mkdir -p "$TARGET_DIR"
 echo -e "${BLUE}Extracting archive into:${NC} $TARGET_DIR"
 if ! tar -xf "$FILENAME" -C "$TARGET_DIR"; then
   echo -e "${RED}Extraction failed.${NC}"
+  log "Error: Extraction failed for $FILENAME"
   exit 1
 fi
+log "Extracted to $TARGET_DIR"
 
 echo -e "${BLUE}Removing old 'server' symlink or directory...${NC}"
 rm -rf server
+log "Removed old 'server' link or directory"
 
 echo -e "${BLUE}Creating symlink:${NC} server → $TARGET_DIR"
 ln -sf "$TARGET_DIR" server
+log "Created symlink: server → $TARGET_DIR"
 
 echo -e "${BLUE}Cleaning up archive...${NC}"
 rm -f "$FILENAME"
+log "Cleaned up archive: $FILENAME"
 
 echo -e "${GREEN}Setup complete!${NC} 'server' now points to ./$TARGET_DIR"
+log "Setup complete for build $BUILD"
