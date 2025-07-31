@@ -132,16 +132,21 @@ TARGET_DIR="server$BUILD"
 FILENAME="fx_$BUILD.tar.xz"
 
 print
-if [ "$DRY_RUN" = true ]; then
-  print "${YELLOW}[Dry Run] Would download:${NC} $URL → $FILENAME"
-  log "[Dry Run] Skipping actual download of $URL"
-else
+if [ "$DRY_RUN" != true ]; then
   print "${BLUE}Downloading FiveM server artifacts for build $BUILD...${NC}"
   log "Download started for $URL"
-  if ! wget "$URL" -O "$FILENAME"; then
-    echo -e "${RED}Download failed.${NC}"
-    log "Error: Download failed for $URL"
-    exit 1
+  if [ "$QUIET" = true ]; then
+    if ! wget --quiet "$URL" -O "$FILENAME"; then
+      echo -e "${RED}Download failed.${NC}"
+      log "Error: Download failed for $URL"
+      exit 1
+    fi
+  else
+    if ! wget --show-progress "$URL" -O "$FILENAME"; then
+      echo -e "${RED}Download failed.${NC}"
+      log "Error: Download failed for $URL"
+      exit 1
+    fi
   fi
   log "Download completed: $FILENAME"
 fi
