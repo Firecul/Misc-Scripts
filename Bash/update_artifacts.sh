@@ -7,7 +7,6 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S.%3N')] $*" >> "$LOG_FILE"
 }
 
-
 # --- Color codes ---
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -22,6 +21,7 @@ TMP_HTML="/tmp/fivem_artifacts.html"
 # --- Parse arguments ---
 MODE=""
 CUSTOM_BUILD=""
+DRY_RUN=false
 
 for arg in "$@"; do
   case $arg in
@@ -29,6 +29,7 @@ for arg in "$@"; do
     --optional) MODE="optional" ;;
     --latest) MODE="latest" ;;
     --build=*) MODE="custom"; CUSTOM_BUILD="${arg#*=}" ;;
+    --dry-run) DRY_RUN=true ;;
     *)
       echo -e "${RED}Unknown option:${NC} $arg"
       echo -e "${YELLOW}Valid options:${NC} --recommended, --optional, --latest, --build=12345"
@@ -37,6 +38,9 @@ for arg in "$@"; do
   esac
 done
 log "CLI mode selected: --$MODE${CUSTOM_BUILD:+=$CUSTOM_BUILD}"
+if [ "$DRY_RUN" = true ]; then
+  log "Dry run mode enabled — no actions will be performed"
+fi
 
 # --- Fetch artifact page ---
 echo -e "${CYAN}Fetching latest FiveM artifact list...${NC}"
@@ -120,37 +124,68 @@ TARGET_DIR="server$BUILD"
 FILENAME="fx_$BUILD.tar.xz"
 
 echo
-echo -e "${BLUE}Downloading FiveM server artifacts for build $BUILD...${NC}"
-log "Download started for $URL"
-if ! wget "$URL" -O "$FILENAME"; then
-  echo -e "${RED}Download failed.${NC}"
-  log "Error: Download failed for $URL"
-  exit 1
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}[Dry Run] Would download:${NC} $URL → $FILENAME"
+  log "[Dry Run] Skipping actual download of $URL"
+else
+  echo -e "${BLUE}Downloading FiveM server artifacts for build $BUILD...${NC}"
+  log "Download started for $URL"
+  if ! wget "$URL" -O "$FILENAME"; then
+    echo -e "${RED}Download failed.${NC}"
+    log "Error: Download failed for $URL"
+    exit 1
+  fi
+  log "Download completed: $FILENAME"
 fi
-log "Download completed: $FILENAME"
 
-echo -e "${BLUE}Creating directory:${NC} $TARGET_DIR"
-mkdir -p "$TARGET_DIR"
-
-echo -e "${BLUE}Extracting archive into:${NC} $TARGET_DIR"
-if ! tar -xf "$FILENAME" -C "$TARGET_DIR"; then
-  echo -e "${RED}Extraction failed.${NC}"
-  log "Error: Extraction failed for $FILENAME"
-  exit 1
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}[Dry Run] Would create directory:${NC} $TARGET_DIR"
+  log "[Dry Run] Skipping directory creation for $TARGET_DIR"
+else
+  echo -e "${BLUE}Creating directory:${NC} $TARGET_DIR"
+  mkdir -p "$TARGET_DIR"
 fi
-log "Extracted to $TARGET_DIR"
 
-echo -e "${BLUE}Removing old 'server' symlink or directory...${NC}"
-rm -rf server
-log "Removed old 'server' link or directory"
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}[Dry Run] Would extract archive into:${NC} $TARGET_DIR"
+  log "[Dry Run] Skipping extraction of $FILENAME"
+else
+  echo -e "${BLUE}Extracting archive into:${NC} $TARGET_DIR"
+  if ! tar -xf "$FILENAME" -C "$TARGET_DIR"; then
+    echo -e "${RED}Extraction failed.${NC}"
+    log "Error: Extraction failed for $FILENAME"
+    exit 1
+  fi
+  log "Extracted to $TARGET_DIR"
+fi
 
-echo -e "${BLUE}Creating symlink:${NC} server → $TARGET_DIR"
-ln -sf "$TARGET_DIR" server
-log "Created symlink: server → $TARGET_DIR"
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}[Dry Run] Would remove existing 'server' symlink or directory${NC}"
+  echo -e "${YELLOW}[Dry Run] Would create symlink:${NC} server → $TARGET_DIR"
+  log "[Dry Run] Would replace 'server' symlink → $TARGET_DIR"
+else
+  echo -e "${BLUE}Removing old 'server' symlink or directory...${NC}"
+  rm -rf server
+  log "Removed old 'server' link or directory"
 
-echo -e "${BLUE}Cleaning up archive...${NC}"
-rm -f "$FILENAME"
-log "Cleaned up archive: $FILENAME"
+  echo -e "${BLUE}Creating symlink:${NC} server → $TARGET_DIR"
+  ln -sf "$TARGET_DIR" server
+  log "Created symlink: server → $TARGET_DIR"
+fi
 
-echo -e "${GREEN}Setup complete!${NC} 'server' now points to ./$TARGET_DIR"
-log "Setup complete for build $BUILD"
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}[Dry Run] Would clean up archive:${NC} $FILENAME"
+  log "[Dry Run] Skipping cleanup of $FILENAME"
+else
+  echo -e "${BLUE}Cleaning up archive...${NC}"
+  rm -f "$FILENAME"
+  log "Cleaned up archive: $FILENAME"
+fi
+
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${GREEN}[Dry Run] Simulation complete.${NC} 'server' would point to ./$TARGET_DIR"
+  log "[Dry Run] Simulation complete for build $BUILD"
+else
+  echo -e "${GREEN}Setup complete!${NC} 'server' now points to ./$TARGET_DIR"
+  log "Setup complete for build $BUILD"
+fi
