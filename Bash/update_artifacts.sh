@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# --- Color codes ---
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
 ARTIFACTS_URL="https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/"
 TMP_HTML="/tmp/fivem_artifacts.html"
 
@@ -14,17 +22,17 @@ for arg in "$@"; do
     --latest) MODE="latest" ;;
     --build=*) MODE="custom"; CUSTOM_BUILD="${arg#*=}" ;;
     *)
-      echo "Unknown option: $arg"
-      echo "Valid options: --recommended, --optional, --latest, --build=12345"
+      echo -e "${RED}Unknown option:${NC} $arg"
+      echo -e "${YELLOW}Valid options:${NC} --recommended, --optional, --latest, --build=12345"
       exit 1
       ;;
   esac
 done
 
 # Fetch artifact page
-echo "Fetching latest FiveM artifact list..."
+echo -e "${CYAN}Fetching latest FiveM artifact list...${NC}"
 if ! curl -fsSL "$ARTIFACTS_URL" -o "$TMP_HTML"; then
-  echo "Failed to fetch artifact list. Please check your internet connection or try again later."
+  echo -e "${RED}Failed to fetch artifact list.${NC} Please check your internet connection or try again later."
   exit 1
 fi
 
@@ -56,16 +64,16 @@ case $MODE in
     BUILD=$CUSTOM_BUILD
     MATCH=$(grep -oP "./${BUILD}-[^/]+/fx\.tar\.xz" "$TMP_HTML" | head -n1)
     if [ -z "$MATCH" ]; then
-      echo "Build $BUILD not found on the server."
+      echo -e "${RED}Build $BUILD not found on the server.${NC}"
       exit 1
     fi
     URL="$ARTIFACTS_URL${MATCH#./}"
     ;;
   *)
     echo
-    echo "No valid flag provided. Entering interactive mode."
+    echo -e "${CYAN}No flag provided. Entering interactive mode.${NC}"
     echo
-    echo "Select a build to download:"
+    echo -e "${YELLOW}Select a build to download:${NC}"
     echo "1) Recommended Build ($RECOMMENDED)"
     echo "2) Optional Build    ($OPTIONAL)"
     echo "3) Latest Listed     ($LATEST_BUILD)"
@@ -80,46 +88,46 @@ case $MODE in
         read -rp "Enter the build number: " BUILD
         MATCH=$(grep -oP "./${BUILD}-[^/]+/fx\.tar\.xz" "$TMP_HTML" | head -n1)
         if [ -z "$MATCH" ]; then
-          echo "Build $BUILD not found on the server."
+          echo -e "${RED}Build $BUILD not found on the server.${NC}"
           exit 1
         fi
         URL="$ARTIFACTS_URL${MATCH#./}"
         ;;
       *)
-        echo "Invalid option."
+        echo -e "${RED}Invalid option.${NC}"
         exit 1
         ;;
     esac
     ;;
 esac
 
-# Start download and setup
+# --- Download & Setup ---
 TARGET_DIR="server$BUILD"
 FILENAME="fx_$BUILD.tar.xz"
 
 echo
-echo "Downloading FiveM server artifacts for build $BUILD..."
+echo -e "${BLUE}Downloading FiveM server artifacts for build $BUILD...${NC}"
 if ! wget "$URL" -O "$FILENAME"; then
-  echo "Download failed."
+  echo -e "${RED}Download failed.${NC}"
   exit 1
 fi
 
-echo "Creating directory: $TARGET_DIR"
+echo -e "${BLUE}Creating directory:${NC} $TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
-echo "Extracting into $TARGET_DIR..."
+echo -e "${BLUE}Extracting archive into:${NC} $TARGET_DIR"
 if ! tar -xf "$FILENAME" -C "$TARGET_DIR"; then
-  echo "Extraction failed."
+  echo -e "${RED}Extraction failed.${NC}"
   exit 1
 fi
 
-echo "Removing old 'server' link if it exists..."
+echo -e "${BLUE}Removing old 'server' symlink or directory...${NC}"
 rm -rf server
 
-echo "Creating symlink: server → $TARGET_DIR"
+echo -e "${BLUE}Creating symlink:${NC} server → $TARGET_DIR"
 ln -sf "$TARGET_DIR" server
 
-echo "Cleaning up archive..."
+echo -e "${BLUE}Cleaning up archive...${NC}"
 rm -f "$FILENAME"
 
-echo "Setup complete. 'server' now points to ./$TARGET_DIR"
+echo -e "${GREEN}Setup complete!${NC} 'server' now points to ./$TARGET_DIR"
