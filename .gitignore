@@ -12,3 +12,21 @@ PrivateScripts
 Python/.idea/
 
 Batch/ffmpeg.exe
+
+Batch/avcodec-60.dll
+
+Batch/avdevice-60.dll
+
+Batch/avfilter-9.dll
+
+Batch/avformat-60.dll
+
+Batch/avutil-58.dll
+
+Batch/postproc-57.dll
+
+Batch/swresample-4.dll
+
+Batch/swscale-7.dll
+
+*.mp4
