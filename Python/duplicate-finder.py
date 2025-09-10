@@ -36,10 +36,18 @@ def find_duplicates(root_path, algo="md5"):
 
 def main():
     parser = argparse.ArgumentParser(description="Find duplicate files by hash.")
-    parser.add_argument("path", help="Root directory to scan")
+    parser.add_argument("path", nargs="?", help="Root directory to scan")
     parser.add_argument("--algo", choices=["md5", "sha1", "sha256", "crc32"], default="md5",
                         help="Hash algorithm (default: md5)")
     args = parser.parse_args()
+
+    # Ask interactively if no path provided
+    if not args.path:
+        args.path = input("Enter the path to scan for duplicates: ").strip()
+
+    if not os.path.isdir(args.path):
+        print(f"Error: {args.path} is not a valid directory.")
+        return
 
     duplicates = find_duplicates(args.path, args.algo)
 
